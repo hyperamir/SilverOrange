@@ -7,31 +7,20 @@ const Repos = () => {
   const [repos, setRepos] = useState([]);
 
   useEffect(() => {
+    //fetch repos from backend
     axios.get('http://localhost:4000/repos').then(response => {
       setRepos(response.data);
-      console.log(response.data);
     }).catch(e => {
       console.log(e);
     })
   }, []);
 
   const handleLanguage = (e) => {
+    //filter repos by selected language
     const filteredRepos = repos.filter(repo => repo.language === e.target.value);
     setRepos(filteredRepos);
   }
 
-  // useEffect(() => {
-  //   async function showReadme(repoName) {
-  //     try {
-  //       const result = await axios.get(`https://raw.githubusercontent.com/${repoName}/master/README.md`);
-  //       console.log('readme:', result)
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
-
-  //   showReadme()
-  // }, [])
 
   return (
     <div>
@@ -42,24 +31,10 @@ const Repos = () => {
           repo={repo}
           handleLanguage={handleLanguage}
         />
-
       ))}
     </div>
-
   )
 }
 
 export default Repos;
 
- // async function fetchData() {
-  //   try {
-  //     const result = await axios.get('http://localhost:4000/repos');
-  //     console.log(sortByDate(result.data));
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);

@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const Repo = ({ repo, handleLanguage }) => {
+  // define expanded state to show Readme file in the current page
+  // (to avoid create another route for a repo)
   const [expanded, setExpanded] = useState(false);
   const [readme, setReadme] = useState('');
 
   useEffect(() => {
+    // fetch README.md of repo if it's available
     async function showReadme(repoName) {
       try {
         const result = await axios.get(`https://raw.githubusercontent.com/${repoName}/master/README.md`);
@@ -29,7 +32,9 @@ const Repo = ({ repo, handleLanguage }) => {
       {expanded && (
         <div>
           <h5>MarkDown:</h5>
-          {readme && <p>{readme}</p>}
+          {/* Not sure where are author and message for a commit */}
+          <p><strong>Most recent commit date: </strong>{repo.updated_at}</p>
+          {readme && <p><strong>README.md: </strong>{readme}</p>}
         </div>
       )}
     </div>
