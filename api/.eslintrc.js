@@ -22,6 +22,7 @@ module.exports = {
   rules: {
     'array-callback-return': 'error',
     'constructor-super': 'error',
+    'prettier/prettier': 0,
     curly: 'error',
     'default-case': [
       'error',
