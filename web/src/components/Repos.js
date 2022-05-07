@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { sortByDate } from '../helper/helpers';
+import Repo from './Repo';
 
 const Repos = () => {
   const [repos, setRepos] = useState([]);
@@ -19,16 +20,29 @@ const Repos = () => {
     setRepos(filteredRepos);
   }
 
+  // useEffect(() => {
+  //   async function showReadme(repoName) {
+  //     try {
+  //       const result = await axios.get(`https://raw.githubusercontent.com/${repoName}/master/README.md`);
+  //       console.log('readme:', result)
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+
+  //   showReadme()
+  // }, [])
+
   return (
     <div>
       <h1>List Of Repositories</h1>
       {sortByDate(repos).map(repo => (
-        <div key={repo.id}>
-          <p><strong>Repository Name: </strong>{repo.name}</p>
-          <p><strong>Description: </strong>{repo.description}</p>
-          <p><strong>Language: </strong><button value={repo.language} onClick={e => handleLanguage(e)}>{repo.language}</button></p>
-          <p><strong>Forks Count: </strong>{repo.forks_count}</p>
-        </div>
+        <Repo
+          key={repo.id}
+          repo={repo}
+          handleLanguage={handleLanguage}
+        />
+
       ))}
     </div>
 
